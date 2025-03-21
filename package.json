@@ -1,10 +1,10 @@
 {
-	"name": "@nevalla/kube-resource-map",
-	"version": "1.1.0",
-	"description": "Lens extension to visualize Kubernetes resources and their relations",
-	"homepage": "https://github.com/nevalla/lens-resource-map-extension",
+	"name": "@GHARBIyasmine/Freelens-resource-map",
+	"version": "1.0.0",
+	"description": "FreeLens extension to visualize Kubernetes resources and their relations",
+	"homepage": "https://github.com/GHARBIyasmine/Freelens-resource-map-extension",
 	"license": "MIT",
-	"publisher": "Lauri Nevala",
+	"publisher": "Yasmine Gharbi",
 	"renderer": "dist/renderer.js",
 	"engines": {
 		"node": ">=16.0",

@@ -1,6 +1,15 @@
-# Lens Resource Map
+# FreeLens Resource Map
 
-Lens Resource Map is an extension for [Lens - The Kubernetes IDE](https://k8slens.dev) that displays Kubernetes resources and their relations as a real-time force-directed graph.
+> [!NOTE]
+> This is a fork of [kube-resource-map](https://github.com/nevalla/lens-resource-map-extension),  
+originally created by **Lauri Nevala**. This version has been adapted and updated for FreeLens.
+
+
+
+## Overview 
+The following is a description from the original repo : 
+
+"Lens Resource Map is an extension for [Lens - The Kubernetes IDE](https://k8slens.dev) that displays Kubernetes resources and their relations as a real-time force-directed graph."
 
 ![](./images/Screenshot.png)
 
@@ -19,3 +28,8 @@ Lens Resource Map is an extension for [Lens - The Kubernetes IDE](https://k8slen
 3. Switch to the Extensions view (`CMD+SHIFT+E` on macOS) on Lens.
 4. Select tarball file from filesystem.
 5. Click on the Install button.
+
+
+## License
+This project is licensed under the MIT License.  
+Original work © Lauri Nevala. Modifications © Yasmine Gharbi
