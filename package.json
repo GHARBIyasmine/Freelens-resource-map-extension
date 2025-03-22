@@ -7,14 +7,21 @@
 	"publisher": "Yasmine Gharbi",
 	"renderer": "dist/renderer.js",
 	"engines": {
-		"node": ">=16.0",
-		"lens": "^6.0.0"
+		"node": ">=20.0",
+		"freelens": "^1.1.0"
 	},
 	"keywords": [
 		"lens",
 		"extension",
 		"k8slens",
-		"kubernetes"
+		"kubernetes",
+		"freelensapp",
+		"extension",
+		"lens",
+		"openlens",
+		"freelens",
+		"resource",
+		"map"
 	],
 	"files": [
 		"dist/"
@@ -35,34 +42,21 @@
 		"cloudProviders": [],
 		"kubernetesDistros": []
 	},
-	"dependencies": {},
 	"devDependencies": {
-		"@jest-runner/electron": "^3.0.0",
-		"@k8slens/extensions": "5.0.0-beta.7",
-		"@testing-library/jest-dom": "^5.11.6",
-		"@testing-library/react": "^11.2.2",
-		"@types/d3-force": "^2.1.0",
-		"@types/jest": "^26.0.15",
-		"@types/node": "^12.12.9",
-		"@types/react": "^17.0.0",
-		"@types/react-dom": "^17.0.1",
-		"@typescript-eslint/eslint-plugin": "^4.8.1",
-		"@typescript-eslint/parser": "^4.8.1",
-		"css-loader": "^5.0.1",
-		"d3-force": "^2.1.1",
-		"electron": "^11.0.3",
-		"jest": "^26.6.3",
-		"mobx": "^6.3.0",
-		"mobx-react": "^7.1.0",
-		"node-sass": "^6.0.0",
-		"react": "^17.0.1",
-		"react-dom": "^17.0.1",
-		"react-force-graph": "1.41.5",
-		"sass-loader": "^10.1.0",
-		"style-loader": "^2.0.0",
-		"ts-loader": "^8.0.11",
-		"typescript": "^4.1.2",
-		"webpack": "^4.44.2",
-		"webpack-cli": "^3.3.11"
+		"@freelensapp/extensions": "^1.1.0",
+		"@types/d3-force": "^3.0.10",
+		"@types/node": "^20.17.24",
+		"css-loader": "^6.11.0",
+		"d3-force": "^3.0.0",
+		"electron": "^34.3.3",
+		"jest": "^29.7.0",
+		"node-sass": "^9.0.0",
+		"react-force-graph": "^1.47.6",
+		"sass-loader": "^16.0.5",
+		"style-loader": "^4.0.0",
+		"ts-loader": "^9.5.2",
+		"typescript": "5.8.2",
+		"webpack": "^5.98.0",
+		"webpack-cli": "^6.0.1"
 	}
 }

@@ -1,5 +1,5 @@
 import React from "react"
-import { Renderer } from "@k8slens/extensions";
+import { Renderer } from "@freelensapp/extensions";
 import { KubeForceChart, KubeResourcePage } from "./components"
 import { KubeControllerChart } from "./components/KubeControllerChart";
 import { KubePodChart } from "./components/KubePodChart";

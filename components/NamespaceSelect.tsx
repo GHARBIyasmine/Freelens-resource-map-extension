@@ -4,7 +4,7 @@ import "./NamespaceSelect.scss";
 import * as React from "react";
 import { action, computed, makeObservable, observable } from "mobx";
 import { observer } from "mobx-react";
-import { Renderer, Common } from "@k8slens/extensions";
+import { Renderer, Common } from "@freelensapp/extensions";
 
 const namespaceStore: Renderer.K8sApi.NamespaceStore = Renderer.K8sApi.apiManager.getStore(Renderer.K8sApi.namespacesApi) as Renderer.K8sApi.NamespaceStore;
 

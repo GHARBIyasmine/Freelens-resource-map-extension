@@ -1,5 +1,5 @@
 import "./KubeForceChart.scss";
-import { Renderer } from "@k8slens/extensions";
+import { Renderer } from "@freelensapp/extensions";
 import { comparer, makeObservable, observable, reaction } from "mobx";
 import { disposeOnUnmount, observer } from "mobx-react";
 import React, { createRef, Fragment, MutableRefObject } from "react";

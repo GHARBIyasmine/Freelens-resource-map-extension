@@ -1,5 +1,5 @@
 import "./KubeForceChart.scss";
-import { Common, Renderer } from "@k8slens/extensions";
+import { Common, Renderer } from "@freelensapp/extensions";
 import { comparer, observable, reaction, values } from "mobx";
 import { disposeOnUnmount, observer } from "mobx-react";
 import React, { createRef, Fragment, MutableRefObject } from "react";
@@ -9,7 +9,7 @@ import ReactDOM from "react-dom";
 import { PodTooltip, ServiceTooltip, DeploymentTooltip, StatefulsetTooltip, DefaultTooltip, IngressTooltip} from "./tooltips";
 import { config } from "./helpers/config";
 import { ChartDataSeries, LinkObject, NodeObject } from "./helpers/types";
-import { KubeObject } from "@k8slens/extensions/dist/src/renderer/api/kube-object";
+import { KubeObject } from "@freelensapp/extensions/dist/src/renderer/api/kube-object";
 
 
 const d33d = require("d3-force-3d");

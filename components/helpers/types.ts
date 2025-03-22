@@ -1,4 +1,4 @@
-import { Renderer } from "@k8slens/extensions";
+import { Renderer } from "@freelensapp/extensions";
 
 export type NodeObject = object & {
   id?: string|number;
