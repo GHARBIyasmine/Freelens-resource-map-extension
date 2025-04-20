@@ -11,6 +11,10 @@
 		"node": ">=20.0",
 		"freelens": "^1.2.0"
 	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
+	  },
 	"keywords": [
 		"lens",
 		"extension",
