@@ -1,8 +1,8 @@
 import { Renderer } from "@freelensapp/extensions";
-import { K8sApi } from "@freelensapp/extensions/dist/src/extensions/renderer-api";
 import { observer } from "mobx-react";
 import { ChartDataSeries } from "./helpers/types";
 import { KubeResourceChart } from "./KubeResourceChart";
+
 
 @observer
 export class KubeIngressChart extends KubeResourceChart {

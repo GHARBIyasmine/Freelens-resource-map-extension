@@ -1,28 +1,46 @@
 import { Common, Renderer,} from "@freelensapp/extensions";
 import React from "react";
+import { hasTypedProperty, isString } from "@freelensapp/utilities";
+import { RequireExactlyOne } from "type-fest";
 
 export interface IngressTooltipProps {
   obj: Renderer.K8sApi.Ingress;
 }
 
-interface IExtensionsBackend {
-  serviceName: string;
-  servicePort: number;
+
+// extensions/v1beta1
+interface ExtensionsBackend {
+  serviceName?: string;
+  servicePort?: number | string;
 }
 
 // networking.k8s.io/v1
-interface INetworkingBackend {
-  service: IIngressService;
+interface NetworkingBackend {
+  service?: IngressService;
 }
 
-type IIngressBackend = IExtensionsBackend | INetworkingBackend;
-
-interface IIngressService {
+interface TypedLocalObjectReference {
+  apiGroup?: string;
+  kind: string;
   name: string;
-  port: {
-    name?: string;
-    number?: number;
-  }
+}
+
+type IngressBackend = (ExtensionsBackend | NetworkingBackend) & {
+  resource?: TypedLocalObjectReference;
+};
+
+interface IngressService {
+  name: string;
+  port: RequireExactlyOne<{
+    name: string;
+    number: number;
+  }>;
+}
+
+const unknownPortString = "<unknown>";
+
+function isExtensionsBackend(backend: IngressBackend): backend is ExtensionsBackend {
+  return hasTypedProperty(backend, "serviceName", isString);
 }
 
 export class IngressTooltip extends React.Component<IngressTooltipProps> {
@@ -37,9 +55,9 @@ export class IngressTooltip extends React.Component<IngressTooltipProps> {
         <Renderer.Component.DrawerItem name="Namespace">
           {obj.getNs()}
         </Renderer.Component.DrawerItem>
-        <Renderer.Component.DrawerItem name="Created">
+        {/* <Renderer.Component.DrawerItem name="Created">
            {obj.getAge()} ago
-        </Renderer.Component.DrawerItem>
+        </Renderer.Component.DrawerItem> */}
         {this.renderPaths(obj)}
 
       </div>
@@ -63,8 +81,8 @@ export class IngressTooltip extends React.Component<IngressTooltipProps> {
             <Renderer.Component.Table className="paths">
               {
                 rule.http.paths.map((path, index) => {
-                  const { serviceName, servicePort } = this.getBackendServiceNamePort(path.backend);
-                  const backend = `${serviceName}:${servicePort}`;
+                  const backend = this.getBackendServiceNamePort(path.backend);
+                  
 
                   return (
                     <Renderer.Component.TableRow key={index}>
@@ -83,12 +101,23 @@ export class IngressTooltip extends React.Component<IngressTooltipProps> {
     });
   }
 
-  getBackendServiceNamePort(backend: IIngressBackend) {
-    // .service is available with networking.k8s.io/v1, otherwise using extensions/v1beta1 interface
-    const serviceName = "service" in backend ? backend.service.name : backend.serviceName;
-    // Port is specified either with a number or name
-    const servicePort = "service" in backend ? backend.service.port.number ?? backend.service.port.name : backend.servicePort;
+  getBackendServiceNamePort(backend: IngressBackend | undefined): string {
+    if (!backend) {
+      return unknownPortString;
+    }
+  
+    if (isExtensionsBackend(backend)) {
+      return `${backend.serviceName}:${backend.servicePort}`;
+    }
+  
+    if (backend.service) {
+      const { name, port } = backend.service;
+  
+      return `${name}:${port.number ?? port.name}`;
+    }
+  
+    return unknownPortString;
+  }
 
-    return { serviceName, servicePort };
-  };
+  
 }

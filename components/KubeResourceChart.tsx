@@ -3,16 +3,13 @@ import { Common, Renderer } from "@freelensapp/extensions";
 import { comparer, observable, reaction, values } from "mobx";
 import { disposeOnUnmount, observer } from "mobx-react";
 import React, { createRef, Fragment, MutableRefObject } from "react";
-import { ForceGraph2D} from 'react-force-graph';
-import * as d3 from "d3-force";
+import ForceGraph2D from 'react-force-graph-2d';
 import ReactDOM from "react-dom";
 import { PodTooltip, ServiceTooltip, DeploymentTooltip, StatefulsetTooltip, DefaultTooltip, IngressTooltip} from "./tooltips";
 import { config } from "./helpers/config";
 import { ChartDataSeries, LinkObject, NodeObject } from "./helpers/types";
-import { KubeObject } from "@freelensapp/extensions/dist/src/renderer/api/kube-object";
 
-
-const d33d = require("d3-force-3d");
+type KubeObject = Renderer.K8sApi.KubeObject;
 
 export interface KubeResourceChartProps {
   id?: string; // html-id to bind chart
@@ -61,7 +58,7 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
   protected ingressStore =  Renderer.K8sApi.apiManager.getStore(Renderer.K8sApi.ingressApi) as Renderer.K8sApi.IngressStore;
   protected configMapStore = Renderer.K8sApi.apiManager.getStore(Renderer.K8sApi.configMapApi) as Renderer.K8sApi.ConfigMapsStore;
 
-  protected kubeObjectStores: Renderer.K8sApi.KubeObjectStore[] = []
+  protected kubeObjectStores: Array<Partial<Renderer.K8sApi.KubeObjectStore>> = []
   private watchDisposers: Function[] = [];
 
   private disposers: Function[] = [];
@@ -91,10 +88,10 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
 
     const fg = this.chartRef.current;
     //fg?.zoom(1.2, 1000);
-    fg?.d3Force('link').strength(2).distance(() => 60)
-    fg?.d3Force('charge', d33d.forceManyBody().strength(-60).distanceMax(250));
-    fg?.d3Force('collide', d3.forceCollide(40));
-    fg?.d3Force("center", d3.forceCenter());
+    // fg?.d3Force('link').strength(2).distance(() => 60)
+    // fg?.d3Force('charge', d33d.forceManyBody().strength(-60).distanceMax(250));
+    // fg?.d3Force('collide', d3.forceCollide(40));
+    // fg?.d3Force("center", d3.forceCenter());
 
     const reactionOpts = {
       equals: comparer.structural,
@@ -570,6 +567,15 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
   render() {
     if (!KubeResourceChart.isReady) {
       return (
+        // <Oval
+        //   visible={true}
+        //   height="80"
+        //   width="80"
+        //   color="#01A6A0"
+        //   ariaLabel="oval-loading"
+        //   wrapperStyle={{}}
+        //   wrapperClass=""
+        //   />
         <Renderer.Component.Spinner />
       )
     }

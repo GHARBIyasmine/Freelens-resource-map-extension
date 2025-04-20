@@ -5,6 +5,7 @@ import { KubeResourceChart } from "./KubeResourceChart";
 @observer
 export class KubeControllerChart extends KubeResourceChart {
 
+
   registerStores() {
     this.kubeObjectStores = [
       this.podsStore,
@@ -16,7 +17,7 @@ export class KubeControllerChart extends KubeResourceChart {
       this.deploymentStore,
       this.daemonsetStore,
       this.statefulsetStore
-    ]
+    ] 
   }
 
   generateChartDataSeries = () => {
