@@ -14,6 +14,16 @@ The following is a description from the original repo :
 
 ![](./images/Screenshot.png)
 
+## Installing
+
+1. Go to the Extensions view (CMD+SHIFT+E on macOS and Windows).
+2. Enter the name of this extension, @gharbi-yasmine/freelens-resource-map, into the Install Extension box.
+3. Click on the Install button.
+
+![](./images/install.png)
+
+You can also download the .tgz file from the Release page of the github repo and import it into Freelens.
+
 ## License
 This project is licensed under the MIT License.  
 Original work © Lauri Nevala. 
