@@ -118,7 +118,7 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
         }
         disposeOnUnmount(this, [
           this.namespaceStore.onContextChange((ns) => {
-            console.log("Context change callback triggered with ns:", ns);
+            console.log("[NAMESPACE CHANGED]: ", ns);
             this.namespaceChanged();
           }),
           reaction(() => this.podsStore.items.toJSON(), () => { this.refreshItems(this.podsStore) }, reactionOpts),
@@ -141,10 +141,8 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
 // ========================= Namespace Handling =========================
 
    namespaceChanged = () => {
-    console.log("namespace changed. reaction fired")
     KubeForceChart.isReady = false;
      this.loadData().then(() => {
-      console.log("promise executed. entering then cycle")
       this.displayChart();
       this.applyGraphForces()
     })
@@ -156,7 +154,6 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
 // ========================= Chart Display & Interaction =========================
 
   displayChart = () => {
-    console.log("display chart...")
     this.nodes = [];
     this.links = [];
     this.initZoomDone = false;
@@ -206,7 +203,6 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
         
           
           const items = await store.loadAll();
-          console.log("store load done : ", items)
           if ( store.api.kind !== "ConfigMap") {
             totalItems += items.length;
           }
@@ -217,16 +213,13 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
         console.error("loading store error", error);
       }
     }
-    console.log("totalItems === 0: ", totalItems === 0)
     this.noResourcesFound = totalItems === 0;
-    console.log("noResourcesFound: ", this.noResourcesFound)
     KubeForceChart.isReady = true;
   }
 
   // ========================= Data Processing =========================
 
   generateChartDataSeries = () => {
-    console.log("generateChartDataSeries ...")
     const nodes = [...this.nodes];
     const links = [...this.links];
     this.generatePods();
@@ -650,7 +643,6 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
     }
 
     if (this.noResourcesFound) {
-      console.log("no resource found logic ")
       return (
         <div className="KubeForceChart flex center">
           <h3 style={{ color: "#8E9297" }}>
