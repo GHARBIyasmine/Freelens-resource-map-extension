@@ -1,5 +1,5 @@
 {
-	"name": "@GHARBIyasmine/Freelens-resource-map",
+	"name": "@gharbi-yasmine/Freelens-resource-map",
 	"version": "1.0.0",
 	"description": "FreeLens extension to visualize Kubernetes resources and their relations",
 	"homepage": "https://github.com/GHARBIyasmine/Freelens-resource-map-extension",

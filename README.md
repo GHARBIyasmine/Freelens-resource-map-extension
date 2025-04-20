@@ -1,5 +1,3 @@
->[!CAUTION]
-> 🚧 👷 This repo is still under development ! 🚧 
 
 # FreeLens Resource Map
 
@@ -16,23 +14,7 @@ The following is a description from the original repo :
 
 ![](./images/Screenshot.png)
 
-## Installation
-
-**Lens 5 and above:**
-
-1. Install [Lens](https://k8slens.dev), if not installed.
-2. Switch to the Extensions view (`CMD+SHIFT+E` on macOS) on Lens.
-3. Enter `@nevalla/kube-resource-map` into the Install Extension box.
-4. Click on the Install button.
-
-**Lens 4:**
-1. Install [Lens](https://k8slens.dev), if not installed.
-2. Download version [0.2.0](https://github.com/nevalla/lens-resource-map-extension/releases/download/v0.2.0/nevalla-kube-resource-map-0.2.0.tgz) tarball.
-3. Switch to the Extensions view (`CMD+SHIFT+E` on macOS) on Lens.
-4. Select tarball file from filesystem.
-5. Click on the Install button.
-
-
 ## License
 This project is licensed under the MIT License.  
-Original work © Lauri Nevala. Modifications © Yasmine Gharbi
+Original work © Lauri Nevala. 
+Modifications © 2025 Yasmine Gharbi
