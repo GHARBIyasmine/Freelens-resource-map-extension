@@ -43,7 +43,9 @@ export class KubeIngressChart extends KubeResourceChart {
         if (service) {
           const selector = service.spec.selector;
           const serviceNode = this.generateNode(service);
-          this.addLink({ source: ingressNode.id, target: serviceNode.id });
+          if (serviceNode) {
+            this.addLink({ source: ingressNode, target: serviceNode });
+          }
 
           if (selector) {
             this.podsStore.getAllByNs(ingress.getNs()).filter((item: Renderer.K8sApi.Pod) => {

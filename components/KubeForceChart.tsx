@@ -319,7 +319,7 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
 
       if (secret.type.toString() === "helm.sh/release.v1") {
         const helmReleaseNode = this.getHelmReleaseChartNode(secret.metadata.labels.name, secret.getNs())
-        this.addLink({source: secretNode.id, target: helmReleaseNode.id});
+        this.addLink({source: secretNode, target: helmReleaseNode});
       }
 
       // search for container links
@@ -368,7 +368,7 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
         if (secret) {
           const secretNode = this.generateNode(secret)
           if (secretNode) {
-            this.addLink({ source: ingressNode.id, target: secretNode.id })
+            this.addLink({ source: ingressNode, target: secretNode })
           }
         }
       })
@@ -380,7 +380,7 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
             if (service) {
               const serviceNode = this.generateNode(service)
               if (serviceNode) {
-                this.addLink({ source: ingressNode.id, target: serviceNode.id });
+                this.addLink({ source: ingressNode, target: serviceNode });
               }
             }
           }
@@ -422,9 +422,17 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
 
   protected addLink(link: LinkObject) {
     const linkExists = this.findLink(link);
-
     if (!linkExists) {
-      this.links.push(link);
+      // Convert string IDs to node objects if needed
+      const sourceNode = typeof link.source === 'string' ? this.nodes.find(n => n.id === link.source) : link.source;
+      const targetNode = typeof link.target === 'string' ? this.nodes.find(n => n.id === link.target) : link.target;
+      
+      if (sourceNode && targetNode) {
+        this.links.push({
+          source: sourceNode,
+          target: targetNode
+        });
+      }
     }
   }
 
@@ -484,7 +492,7 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
     const controllerNode = this.generateNode(object);
     pods.forEach((pod: Renderer.K8sApi.Pod) => {
       const podNode = this.getPodNode(pod)
-      this.addLink({ source: controllerNode.id, target: podNode.id})
+      this.addLink({ source: controllerNode, target: podNode})
     })
     const releaseName = this.getHelmReleaseName(object);
 

@@ -58,7 +58,9 @@ export class KubeServiceChart extends KubeResourceChart {
           if((path.backend as any).serviceName == service.getName() || (path.backend as any).service.name == service.getName()) {
             const serviceNode = this.generateNode(service);
             const ingressNode = this.getIngressNode(ingress);
-            this.addLink({ source: ingressNode.id, target: serviceNode.id });
+            if (serviceNode) {
+              this.addLink({ source: ingressNode, target: serviceNode });
+            }
           }
         })
       })

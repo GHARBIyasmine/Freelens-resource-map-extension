@@ -284,7 +284,7 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
               if (!ingressNode) {
                 ingressNode = this.getIngressNode(ingress);
               }
-              this.addLink({ source: ingressNode.id, target: serviceNode.id });
+              this.addLink({ source: ingressNode, target: serviceNode });
             }
           }
         })
@@ -314,7 +314,7 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
           pods.forEach((pod: Renderer.K8sApi.Pod) => {
             const podNode = this.findNode(pod)
             if (podNode) {
-              const serviceLink = { source: podNode.id, target: serviceNode.id}
+              const serviceLink = { source: podNode, target: serviceNode }
               this.addLink(serviceLink);
             }
           })
@@ -389,13 +389,13 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
     controllerNode.object = object;
     pods.forEach((pod: Renderer.K8sApi.Pod) => {
       const podNode = this.getPodNode(pod, podLinks);
-      this.addLink({ source: controllerNode.id, target: podNode.id})
+      this.addLink({ source: controllerNode, target: podNode });
     })
     const releaseName = this.getHelmReleaseName(object);
 
     if (releaseName) {
       const release = this.getHelmReleaseChartNode(releaseName, object.getNs())
-      this.addLink({target: release.id, source: controllerNode.id})
+      this.addLink({target: release, source: controllerNode });
     }
     return controllerNode
   }
@@ -418,7 +418,7 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
       if (secret) {
         const secretNode = this.generateNode(secret)
         if (secretNode) {
-          this.addLink({ source: ingressNode.id, target: secretNode.id })
+          this.addLink({ source: ingressNode, target: secretNode });
         }
       }
     });
@@ -454,7 +454,7 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
           if (secret) {
             const secretNode = this.generateNode(secret)
             this.addLink({
-              source: podNode.id, target: secretNode.id
+              source: podNode, target: secretNode
             })
           }
         }
@@ -466,7 +466,7 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
           if (configMap) {
             const configMapNode = this.generateNode(configMap);
             this.addLink({
-              source: podNode.id, target: configMapNode.id
+              source: podNode, target: configMapNode
             })
           }
         }
@@ -477,7 +477,7 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
           if (secret) {
             const secretNode = this.generateNode(secret);
             this.addLink({
-              source: podNode.id, target: secretNode.id
+              source: podNode, target: secretNode
             })
           }
         }
@@ -491,7 +491,7 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
         const volumeClaimNode = this.generateNode(volumeClaim);
 
         if (volumeClaimNode) {
-          this.addLink({ target: podNode.id, source: volumeClaimNode.id});
+          this.addLink({ target: podNode, source: volumeClaimNode });
         }
       }
     })
@@ -502,7 +502,7 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
       if (configMap) {
         const dataItem = this.generateNode(configMap);
         if (dataItem) {
-          this.addLink({target: podNode.id, source: dataItem.id});
+          this.addLink({target: podNode, source: dataItem });
         }
       }
     })
@@ -512,7 +512,7 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
       if (secret) {
         const dataItem = this.generateNode(secret)
         if (dataItem) {
-          this.addLink({target: podNode.id, source: dataItem.id});
+          this.addLink({target: podNode, source: dataItem });
         }
       }
     })
