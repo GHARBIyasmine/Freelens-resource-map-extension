@@ -8,6 +8,7 @@ import ReactDOM from "react-dom";
 import { PodTooltip, ServiceTooltip, DeploymentTooltip, StatefulsetTooltip, DefaultTooltip, IngressTooltip} from "./tooltips";
 import { config } from "./helpers/config";
 import { ChartDataSeries, LinkObject, NodeObject } from "./helpers/types";
+import * as d3 from "d3-force";
 
 type KubeObject = Renderer.K8sApi.KubeObject;
 
@@ -71,6 +72,15 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
     highlightLinks: new Set<LinkObject>()
   }
 
+  applyGraphForces = () => {
+    const fg = this.chartRef.current;
+    fg?.zoom(1.3, 1000);
+    fg?.d3Force('link').strength(1.3).distance(() => 60);
+    fg?.d3Force('charge', d3.forceManyBody().strength(-60).distanceMax(250));
+    fg?.d3Force('collide', d3.forceCollide(40));
+    fg?.d3Force("center", d3.forceCenter());
+  };
+
   constructor(props: KubeResourceChartProps) {
     super(props)
     this.chartRef = createRef();
@@ -82,16 +92,14 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
 
     this.registerStores();
 
+    try{
     await this.loadData();
-
+  } catch (error) {
+  console.error("loading data error", error);
+  }
     this.displayChart();
 
-    const fg = this.chartRef.current;
-    //fg?.zoom(1.2, 1000);
-    // fg?.d3Force('link').strength(2).distance(() => 60)
-    // fg?.d3Force('charge', d33d.forceManyBody().strength(-60).distanceMax(250));
-    // fg?.d3Force('collide', d3.forceCollide(40));
-    // fg?.d3Force("center", d3.forceCenter());
+    this.applyGraphForces();
 
     const reactionOpts = {
       equals: comparer.structural,
@@ -567,15 +575,6 @@ export class KubeResourceChart extends React.Component<KubeResourceChartProps, S
   render() {
     if (!KubeResourceChart.isReady) {
       return (
-        // <Oval
-        //   visible={true}
-        //   height="80"
-        //   width="80"
-        //   color="#01A6A0"
-        //   ariaLabel="oval-loading"
-        //   wrapperStyle={{}}
-        //   wrapperClass=""
-        //   />
         <Renderer.Component.Spinner />
       )
     }

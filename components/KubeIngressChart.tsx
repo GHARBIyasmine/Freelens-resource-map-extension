@@ -4,7 +4,7 @@ import { ChartDataSeries } from "./helpers/types";
 import { KubeResourceChart } from "./KubeResourceChart";
 
 
-@observer
+
 export class KubeIngressChart extends KubeResourceChart {
 
   registerStores() {

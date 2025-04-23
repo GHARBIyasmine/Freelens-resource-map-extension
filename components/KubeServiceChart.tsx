@@ -2,7 +2,7 @@ import { Renderer } from "@freelensapp/extensions";
 import { observer } from "mobx-react";
 import { KubeResourceChart } from "./KubeResourceChart";
 
-@observer
+
 export class KubeServiceChart extends KubeResourceChart {
 
   registerStores() {
