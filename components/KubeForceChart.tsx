@@ -108,8 +108,11 @@ export class KubeForceChart extends React.Component<KubeForceChartProps, State> 
           this.configMapStore,
           this.secretStore,
         ];
-        await this.loadData();
-
+        try {
+          await this.loadData();
+        } catch (error) {
+          console.error("loading data error", error);
+        }
         this.displayChart();
         this.applyGraphForces();
 
